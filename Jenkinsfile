@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        skipDefaultCheckout(true) // Avoid automatic checkout issues
+    }
+
     environment {
         MAVEN_HOME = 'C:\\Program Files\\apache-maven-3.9.10'
         JAVA_HOME = 'C:\\Program Files\\Java\\jdk-24'
@@ -15,12 +19,22 @@ pipeline {
         stage('Clean Workspace') {
             steps {
                 deleteDir()
+                bat 'taskkill /F /IM java.exe || echo No java process to kill'
             }
         }
 
         stage('Checkout Code') {
             steps {
-                checkout scm
+                checkout([$class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    userRemoteConfigs: [[url: 'https://github.com/Diwakarkamboj/parabankplaywrightjava']]
+                ])
+            }
+        }
+
+        stage('Sanity Check') {
+            steps {
+                bat 'dir /b && if not exist pom.xml exit 1'
             }
         }
 
