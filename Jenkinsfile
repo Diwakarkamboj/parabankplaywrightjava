@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    options {
-        skipDefaultCheckout(true) // Avoid automatic checkout issues
-    }
-
     environment {
         MAVEN_HOME = 'C:\\Program Files\\apache-maven-3.9.10'
         JAVA_HOME = 'C:\\Program Files\\Java\\jdk-24'
@@ -19,36 +15,20 @@ pipeline {
         stage('Clean Workspace') {
             steps {
                 deleteDir()
-                bat 'taskkill /F /IM java.exe || echo No java process to kill'
             }
         }
 
         stage('Checkout Code') {
             steps {
-                checkout([$class: 'GitSCM',
-                    branches: [[name: '*/main']],
-                    userRemoteConfigs: [[url: 'https://github.com/Diwakarkamboj/parabankplaywrightjava']]
-                ])
-            }
-        }
-
-        stage('Sanity Check') {
-            steps {
-                bat 'dir /b && if not exist pom.xml exit 1'
+                checkout scm
             }
         }
 
         stage('Run Tests') {
-    steps {
-        script {
-            def testStatus = bat(script: "mvn clean test -Dbrowser=${params.BROWSER}", returnStatus: true)
-            if (testStatus != 0) {
-                error("❌ Tests failed. Check Maven output above.")
+            steps {
+                bat "mvn clean test -Dbrowser=${params.BROWSER}"
             }
         }
-        echo "🧪 Tests executed with browser: ${params.BROWSER}"
-    }
-}
 
         stage('Verify Report Exists') {
             steps {
