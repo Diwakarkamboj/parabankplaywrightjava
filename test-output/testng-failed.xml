@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite thread-count="1" parallel="tests" name="Failed suite [ParabankSuite]" guice-stage="DEVELOPMENT">
+  <test thread-count="1" parallel="tests" name="Parabank-Test(failed)">
+    <parameter name="testDataPath" value="test-data/standarduser.json"/>
+    <parameter name="browserName" value="chrome"/>
+    <classes>
+      <class name="com.qa.parabank.tests.ParabankTest">
+        <methods>
+          <include name="tearDownClass"/>
+          <include name="validateTransactionByAPI"/>
+          <include name="endToEndTest"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- com.qa.parabank.tests.ParabankTest -->
+    </classes>
+  </test> <!-- Parabank-Test(failed) -->
+</suite> <!-- Failed suite [ParabankSuite] -->

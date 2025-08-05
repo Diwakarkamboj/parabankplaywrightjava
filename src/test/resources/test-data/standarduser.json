@@ -1,0 +1,13 @@
+{
+	"firstName": "John",
+	"lastName": "Kumar",
+	"streetName": "123 main street",
+	"cityName" : "Melbourne",
+	"stateName": "VIC",
+	"zipCode": "3006",
+	"phoneNumber": "1234567890",
+	"ssn": "1234",
+	"password": "test123",
+	"transferFundsAmount" : "50",
+	"findTransactionAmount": "100"
+}
