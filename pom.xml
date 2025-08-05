@@ -113,13 +113,7 @@
 						<file>src/test/resources/test-suites/parabank.xml</file>
 					</suiteXmlFiles>
 					<threadCount>2</threadCount>
-					<!--reportsDirectory>target/test-output</!reportsDirectory-->
-					<properties>
-						<property>
-							<name>usedefaultlisteners</name>
-							<value>true</value>
-						</property>
-					</properties>
+					<reportsDirectory>target/test-output</reportsDirectory>
 				</configuration>
 			</plugin>
 			<!-- To copy all the dependencies to run our tests as part of "mvn
