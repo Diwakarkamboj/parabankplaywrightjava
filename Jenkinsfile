@@ -39,10 +39,16 @@ pipeline {
         }
 
         stage('Run Tests') {
-            steps {
-                bat "mvn clean test -Dbrowser=${params.BROWSER}"
+    steps {
+        script {
+            def testStatus = bat(script: "mvn clean test -Dbrowser=${params.BROWSER}", returnStatus: true)
+            if (testStatus != 0) {
+                error("❌ Tests failed. Check Maven output above.")
             }
         }
+        echo "🧪 Tests executed with browser: ${params.BROWSER}"
+    }
+}
 
         stage('Verify Report Exists') {
             steps {
@@ -61,7 +67,8 @@ pipeline {
                 reportName: 'TestNG Emailable Report',
                 allowMissing: true,
                 alwaysLinkToLastBuild: true,
-                keepAll: true
+                keepAll: true,
+                onlyIfSuccessful: true
             ])
         }
     }
