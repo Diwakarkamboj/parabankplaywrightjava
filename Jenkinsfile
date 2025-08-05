@@ -67,8 +67,7 @@ pipeline {
                 reportName: 'TestNG Emailable Report',
                 allowMissing: true,
                 alwaysLinkToLastBuild: true,
-                keepAll: true,
-                onlyIfSuccessful: true
+                keepAll: true
             ])
         }
     }
